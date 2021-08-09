@@ -1,0 +1,44 @@
+<!-- 02添加控件 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <style type="text/css">
+    body,
+    html,
+    #allmap {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 0;
+      font-family: "微软雅黑";
+    }
+  </style>
+  <script type="text/javascript" src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=GXn1gkhgbbWet55NCyKzjB7Hqfdh3gos"></script>
+  <title>百度地图展示</title>
+</head>
+
+<body>
+  <div id="allmap"></div>
+</body>
+
+</html>
+<script type="text/javascript">
+  // GL版命名空间为BMapGL
+  // 按住鼠标右键，修改倾斜角和角度
+  var map = new BMapGL.Map("allmap"); // 创建Map实例
+  map.centerAndZoom(new BMapGL.Point(116.404, 39.915), 11); // 初始化地图,设置中心点坐标和地图级别
+  map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+  var opts = { // 控件位置
+    anchor:BMAP_ANCHOR_TOP_RIGHT, // 停靠在右上角
+    offset: new BMapGL.Size(150, 20) // 自定义偏移量
+  }
+  var scaleCtrl = new BMapGL.ScaleControl(); // 添加比例尺控件
+  map.addControl(scaleCtrl);
+  var zoomCtrl = new BMapGL.ZoomControl();  // 添加缩放控件
+  map.addControl(zoomCtrl);
+  var cityCtrl = new BMapGL.CityListControl(opts);  // 添加城市列表控件
+  map.addControl(cityCtrl);
+</script>
