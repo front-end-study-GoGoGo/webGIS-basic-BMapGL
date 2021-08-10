@@ -70,7 +70,7 @@
 	//添加覆盖物
 	function add_overlay(){
 		map.addOverlay(marker);            //增加点
-		map.addOverlay(marker_1);          //增加点
+		map.addOverlay(marker_1);          //增加点 -自定义图标
 		map.addOverlay(polyline);          //增加折线
 		map.addOverlay(circle);            //增加圆
 		map.addOverlay(polygon);           //增加多边形
@@ -86,4 +86,6 @@
 		map.clearOverlays();         
 	}
 	add_overlay();
+
+  console.info("%c神奇的console语句", "color: #3190e8; font-size: 30px; font-family: sans-serif");
 </script>
