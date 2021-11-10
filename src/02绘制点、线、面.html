@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+  <style type="text/css">
+    body html,
+    #allmap {
+      width: 100%;
+      height: 100vh;
+      margin-bottom: -15px;
+      overflow: hidden;
+      margin: 0;
+      font-family: "微软雅黑";
+    }
+
+    #allmap {
+      height: 90vh;
+    }
+
+    #allmap .anchorBL img {
+      display: none;
+    }
+
+    #allmap .BMap_cpyCtrl span {
+      display: none !important;
+      ;
+    }
+
+    #r-result {
+      width: 100%;
+    }
+  </style>
+  <script type="text/javascript" src="//api.map.baidu.com/api?type=webgl&v=1.0&ak=GXn1gkhgbbWet55NCyKzjB7Hqfdh3gos">
+  </script>
+  <title>地图展示</title>
+</head>
+
+<body>
+  <div id="allmap"></div>
+  <div id="r-result">
+    <input type="button" onclick="add_overlay();" value="添加覆盖物" />
+    <input type="button" onclick="remove_overlay();" value="删除覆盖物" />
+  </div>
+</body>
+
+</html>
+<script type="text/javascript">
+  // GL版命名空间为BMapGL
+  // 按住鼠标右键，修改倾斜角和角度
+  var map = new BMapGL.Map("allmap"); // 创建Map实例
+  var point = new BMapGL.Point(116.404, 39.915); // 点变量
+  map.centerAndZoom(new BMapGL.Point(116.404, 39.915), 15); // 初始化地图,设置中心点坐标和地图级别
+  map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+
+  var myIcon = new BMapGL.Icon("../images/面性椰子树.png", new BMapGL.Size(100, 100), { // 自定义图标 size里面100表示图片的高宽为100
+    // 指定定位位置。  
+    // 当标注显示在地图上时，其所指向的地理位置距离图标左上   
+    // 角各偏移100像素和100像素。您可以看到在本例中该位置即是  
+    // 图标中央下端的尖角位置。   
+    anchor: new BMapGL.Size(100, 100),
+    // 设置图片偏移。  
+    // 当您需要从一幅较大的图片中截取某部分作为标注图标时，您  
+    // 需要指定大图的偏移位置，此做法与css sprites技术类似。   
+    // imageOffset: new BMapGL.Size(0, 0 - 25)   // 设置图片偏移   
+  });
+  var marker = new BMapGL.Marker(new BMapGL.Point(116.404, 39.915)); // 创建点
+  var marker_1 = new BMapGL.Marker(new BMapGL.Point(116.404, 39.915), {
+    icon: myIcon
+  }); // 创建点 --自定义图标
+
+  var polyline = new BMapGL.Polyline([
+    new BMapGL.Point(116.399, 39.910),
+    new BMapGL.Point(116.405, 39.920),
+    new BMapGL.Point(116.425, 39.900)
+  ], {
+    strokeColor: "red",
+    strokeWeight: 2,
+    strokeOpacity: 0.5
+  }); //创建折线
+
+  var circle = new BMapGL.Circle(point, 500, {
+    strokeColor: "blue",
+    strokeWeight: 2,
+    strokeOpacity: 0.5
+  }); //创建圆
+
+  var polygon = new BMapGL.Polygon([
+    new BMapGL.Point(116.387112, 39.920977),
+    new BMapGL.Point(116.385243, 39.913063),
+    new BMapGL.Point(116.394226, 39.917988),
+    new BMapGL.Point(116.401772, 39.921364),
+    new BMapGL.Point(116.41248, 39.927893)
+  ], {
+    strokeColor: "blue",
+    strokeWeight: 2,
+    strokeOpacity: 0.5
+  }); //创建多边形
+
+  var pStart = new BMapGL.Point(116.392214, 39.918985);
+  var pEnd = new BMapGL.Point(116.41478, 39.911901);
+  var rectangle = new BMapGL.Polygon([
+    new BMapGL.Point(pStart.lng, pStart.lat),
+    new BMapGL.Point(pEnd.lng, pStart.lat),
+    new BMapGL.Point(pEnd.lng, pEnd.lat),
+    new BMapGL.Point(pStart.lng, pEnd.lat)
+  ], {
+    strokeColor: "blue",
+    strokeWeight: 2,
+    strokeOpacity: 0.5
+  }); //创建矩形
+
+  //添加覆盖物
+  function add_overlay() {
+    map.addOverlay(marker); //增加点
+    map.addOverlay(marker_1); //增加点 --自定义图标
+    map.addOverlay(polyline); //增加点 --自定义图标
+    map.addOverlay(circle); //增加圆
+    map.addOverlay(polygon); //增加多边形
+    map.addOverlay(rectangle); //增加矩形
+  }
+
+  //删除覆盖物
+  function remove_overlay() {
+    map.clearOverlays();
+  }
+</script>
